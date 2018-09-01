@@ -1,10 +1,10 @@
 # Proyecto-Tics-II
 Desarrollo de proyecto del ramo Tics II
 
-## Descripción de proyecto(a muy grandes rasgos) : 
+## Descripción de proyecto(a muy grandes rasgos) :
   - Tener en cuenta los valores de mercado.
-  - Etapa de cotizacion : 
-    * Tipos de obras 
+  - Etapa de cotizacion :
+    * Tipos de obras
       * Según unión
         * Estructuras soldadas
         * Estructuras apernadas
@@ -24,3 +24,9 @@ Desarrollo de proyecto del ramo Tics II
         - Generalmente medido en porcentaje respecto a los anteriores.
       * Utilidad ( Porcentaje de costo sobre lo utilizado)
         - Debe poder modificarse para ajustarse al mercado (IMPORTANTE).
+
+## Pasos para que funcione :
+
+1. Descargan el git
+2. Correr ``` npm install ```
+3. Probar la vista con el ``` npm start ```
