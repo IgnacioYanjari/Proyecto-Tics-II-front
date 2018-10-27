@@ -12,7 +12,7 @@ Desarrollo de proyecto del ramo Tics II
         * Pesada
         * Semi-Pesada
         * Ligero
-    * Partes de una cotización : 
+    * Partes de una cotización :
       * Material ( Respecto a que tipo de metal o fierro se utilizará )
       * Insumos ( Respecto a los clavos, pernos y similares, son generalmente usados para unir o juntar el material )
       * Equipos o Maquinaria ( Respecto a gruas, elevadores, etc)
@@ -29,4 +29,4 @@ Desarrollo de proyecto del ramo Tics II
 
 1. Descargan el git
 2. Correr ``` npm install ```
-3. Probar la vista con el ``` npm start ```
+3. Levantar servidor backend , para posterior levantar la página web via ```npm start```

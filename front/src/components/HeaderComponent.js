@@ -1,10 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import AuthService from 'components/AuthService';
+
 class HeaderComponent extends Component {
+
+  constructor(props){
+    super(props);
+    this.Auth = new AuthService();
+    this.handleLogout = this.handleLogout.bind(this);
+    this.state = { redirect : false};
+  }
+
+  handleLogout(){
+    this.Auth.logout();
+  }
+
+  renderButtons(){
+    if(this.Auth.loggedIn())
+      return (
+        <li className="nav-item">
+            <Link className="nav-link" to="/" onClick={this.handleLogout}>Cerrar sesión</Link>
+        </li>
+      )
+
+    return (<li className="nav-item">
+        <Link className="nav-link" to="/login">Iniciar sesión</Link>
+      </li>)
+  }
+
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link className="navbar-brand" to="/">Navbar</Link>
+        <Link className="navbar-brand" to="/">Montajes LATAM</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -12,13 +40,14 @@ class HeaderComponent extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <Link className="nav-link" to="/"> Home
+              <Link className="nav-link" to="/"> Inicio
                 <span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
+              <Link className="nav-link" to="/about">Acerca</Link>
             </li>
+            {this.renderButtons()}
           </ul>
         </div>
       </nav>
