@@ -15,8 +15,8 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={MainPage}/>
-          <PrivateRoute exact path="/about" component={AboutPage} />
-          <Route exact path="/login" component={LoginPage} />
+          <PrivateRoute exact path="/licitaciones" component={AboutPage} />
+          <Route exact path="/ingresar" component={LoginPage} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </Router>
@@ -35,7 +35,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/ingresar",
               state: { from: props.location }
             }}
           />

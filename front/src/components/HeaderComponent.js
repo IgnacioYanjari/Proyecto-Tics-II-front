@@ -19,12 +19,17 @@ class HeaderComponent extends Component {
     if(this.Auth.loggedIn())
       return (
         <li className="nav-item">
-            <Link className="nav-link" to="/" onClick={this.handleLogout}>Cerrar sesión</Link>
+            <Link className="nav-link" to="/"
+              onClick={this.handleLogout}>
+              Cerrar sesión
+            </Link>
         </li>
       )
 
     return (<li className="nav-item">
-        <Link className="nav-link" to="/login">Iniciar sesión</Link>
+        <Link className="nav-link" to="/ingresar">
+          Iniciar sesión
+        </Link>
       </li>)
   }
 
@@ -33,7 +38,9 @@ class HeaderComponent extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">Montajes LATAM</Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button className="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
@@ -45,7 +52,7 @@ class HeaderComponent extends Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">Acerca</Link>
+              <Link className="nav-link" to="/licitaciones">Licitaciones</Link>
             </li>
             {this.renderButtons()}
           </ul>
