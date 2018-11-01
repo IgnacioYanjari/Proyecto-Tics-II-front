@@ -1,4 +1,9 @@
 import decode from 'jwt-decode';
+import { message } from 'antd'
+
+message.config({
+  top: 70,
+})
 
 class AuthService {
     // Initializing important variables
@@ -11,16 +16,17 @@ class AuthService {
 
     login(username, password) {
         // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}/login`, {
+        return this.fetch(`${this.domain}/auth/login`, {
             method: 'POST',
             body: JSON.stringify({
                 username,
                 password
             })
         }).then(res => {
-            console.log(res);
-            this.setToken(res.token) // Setting the token in localStorage
-            return Promise.resolve(res);
+            if(res){
+              this.setToken(res.token) // Setting the token in localStorage
+              return Promise.resolve(res);
+            }
         })
     }
 
@@ -33,7 +39,8 @@ class AuthService {
     isTokenExpired(token) {
         try {
             const decoded = decode(token);
-            if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
+            // Checking if token is expired. N
+            if (decoded.exp < Date.now() / 1000 || decoded.exp === null) {
                 return true;
             }
             else
@@ -82,17 +89,19 @@ class AuthService {
             headers,
             ...options
         }).then(this._checkStatus)
-          .then(response => response.json());
+          .then(response => {
+            if(response) return response.json();
+          });
     }
 
     _checkStatus(response) {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
+            message.success('Ingreso correcto');
             return response
         } else {
-            var error = new Error(response.statusText)
-            error.response = response
-            throw error
+            message.error('Datos invalidos');
+            console.log(response);
         }
     }
 }

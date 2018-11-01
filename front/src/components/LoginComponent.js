@@ -24,7 +24,8 @@ class Login extends Component {
 
         this.Auth.login(this.state.username,this.state.password)
           .then(res =>{
-            this.setState({redirect : true});
+            if(res)
+              this.setState({redirect : true});
           })
           .catch(err =>{
               alert(err);
@@ -40,7 +41,7 @@ class Login extends Component {
         <div className="text-center mt-5">
           <div className="card text-center ml-4 mr-4">
             <div className="card-header">
-              <h2>Ingresar al sistema</h2>
+              <div >Ingresar al sistema</div>
             </div>
             <div className="card-body">
             <form onSubmit={(e) => this.handleFormSubmit(e)}>
@@ -57,6 +58,7 @@ class Login extends Component {
                       name="username"
                       type="text"
                       onChange={this.handleChange}
+                      required
                   />
                 </div>
               </div>
@@ -73,6 +75,7 @@ class Login extends Component {
                       name="password"
                       type="password"
                       onChange={this.handleChange}
+                      required
                   />
                 </div>
               </div>

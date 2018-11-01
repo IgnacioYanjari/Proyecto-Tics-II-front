@@ -6,6 +6,7 @@ import AboutPage from 'pages/AboutPage';
 import LoginPage from 'pages/LoginPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import AuthService from 'components/AuthService';
+import 'antd/dist/antd.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
