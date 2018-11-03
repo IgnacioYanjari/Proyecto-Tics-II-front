@@ -22,7 +22,8 @@ class AuthService {
                 username,
                 password
             })
-        }).then(res => {
+        },'Ingreso Realizado Correctamente', 'Credenciales invalidas')
+          .then(res => {
             if(res){
               this.setToken(res.token) // Setting the token in localStorage
               return Promise.resolve(res);
@@ -72,7 +73,7 @@ class AuthService {
     }
 
 
-    fetch(url, options) {
+    fetch(url, options, messageSuccess, messageFail) {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -88,19 +89,19 @@ class AuthService {
         return fetch(url, {
             headers,
             ...options
-        }).then(this._checkStatus)
+        }).then(res => this._checkStatus(res, messageSuccess, messageFail))
           .then(response => {
             if(response) return response.json();
           });
     }
 
-    _checkStatus(response) {
+    _checkStatus(response, messageSuccess, messageFail) {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-            message.success('Ingreso correcto');
+            message.success(messageSuccess);
             return response
         } else {
-            message.error('Datos invalidos');
+            message.error(messageFail);
             console.log(response);
         }
     }

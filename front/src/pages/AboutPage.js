@@ -15,7 +15,7 @@ class AboutPage extends Component {
               <div className="card-header text-center">
                 <h4> Lista de licitaciones </h4>
               </div>
-              <div className="card-body scroll">
+              <div className="card-body scroll mb-3">
                 <TenderComponent tenders={[{
                     name : 'Montaje Testeo1',
                     type : [{
@@ -24,6 +24,9 @@ class AboutPage extends Component {
                     },{
                       type : 'Peso',
                       name : 'Liviana'
+                    },{
+                      type : 'Prueba1',
+                      name : 'Tipo de prueba'
                     }]
                   },{
                     name : 'Montaje Testeo2',
@@ -71,7 +74,7 @@ class AboutPage extends Component {
                       name : 'Liviana'
                     }]
                   },{
-                    name : 'Montaje Testeo3',
+                    name : 'Montaje Testeo4',
                     type : [{
                       type : 'Unión',
                       name : 'Soldada'
@@ -174,7 +177,11 @@ class AboutPage extends Component {
             </div>
           </div>
           <div className="col-lg-8">
-            <DescriptionComponent />
+            <DescriptionComponent data={[
+                {
+                  'title' : 'Descripcion general',
+                  'content' : 'dkljkdlasjkldsajkl'
+                }]}/>
           </div>
         </div>
       </div>
