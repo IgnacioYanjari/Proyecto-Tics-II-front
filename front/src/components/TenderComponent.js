@@ -22,19 +22,19 @@ class TenderComponent extends Component {
     const tenders = this.props.tenders;
     return tenders.map( (value, index) => {
       return(
-        <div key={shortid.generate()}>
+        <div key={shortid.generate()} >
           <div className="row">
-              <div className="col-5 col-lg-3">
-                <div className="row ml-3">
-                  <button type="button" className="btn btn-primary align-middle">Abrir</button>
+              <div className="col-4 col-md-5 col-lg-3">
+                <div className="row ml-1">
+                  <button type="button" className="btn btn-primary align-middle btn-sm btn-block">Abrir</button>
                 </div>
-                <div className="row ml-3">
-                  <button type="button" className="btn btn-danger align-middle mt-2">Cerrar</button>
+                <div className="row ml-1 mt-2">
+                  <button type="button" className="btn btn-danger align-middle btn-sm btn-block">Cerrar</button>
                 </div>
               </div>
-              <div className="col-7 col-lg-9" >
-                <p style={{ color : '#706F6F'}} className="ml-4 mr-3">
-                  <b className="mb-0"> {value.name}</b> <br/>
+              <div className="col-8 col-md-7 col-lg-9" >
+                <p style={{ color : '#706F6F'}} className="ml-1 mr-1">
+                  <b> {value.name}</b> <br/>
                   { this.renderTypes(value) }
                 </p>
               </div>
