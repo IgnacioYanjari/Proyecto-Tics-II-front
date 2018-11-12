@@ -48,7 +48,31 @@ class AboutPage extends Component {
             </div>
           </div>
           <div className="col-lg-8">
-            <DescriptionComponent />
+            <DescriptionComponent description={[{
+                name : 'dg',
+                title : 'Desripción general',
+                content : 'Esto es una descripción general',
+              },{
+                name : 'ma',
+                title : 'Materiales',
+                content : 'Esto es un material',
+              },{
+                name : 'in',
+                title : 'Insumos',
+                content : 'Esto es un insumo',
+              },{
+                name : 'mo',
+                title : 'Mano de obra',
+                content : 'Esto es una mano de obra',
+              },{
+                name : 'mq',
+                title : 'Maquinaria',
+                content : 'Esto es una maquinaria'
+              },{
+                name : 'gg',
+                title : 'Gastos generales',
+                content : 'Esto es un gasto general'
+            }]}/>
           </div>
         </div>
       </div>
