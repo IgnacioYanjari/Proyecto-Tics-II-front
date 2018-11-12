@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from 'components/AuthService';
+import AuthService from 'services/AuthService';
 
 class HeaderComponent extends Component {
 
@@ -53,6 +53,9 @@ class HeaderComponent extends Component {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/licitaciones">Licitaciones</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/tipos">Tipos</Link>
             </li>
             {this.renderButtons()}
           </ul>

@@ -5,7 +5,8 @@ import MainPage from 'pages/MainPage';
 import AboutPage from 'pages/AboutPage';
 import LoginPage from 'pages/LoginPage';
 import NotFoundPage from 'pages/NotFoundPage';
-import AuthService from 'components/AuthService';
+import TypesPage from 'pages/TypesPage';
+import AuthService from 'services/AuthService';
 import 'antd/dist/antd.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +18,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={MainPage}/>
           <PrivateRoute exact path="/licitaciones" component={AboutPage} />
+          <PrivateRoute exact path='/tipos' component={TypesPage} />
           <Route exact path="/ingresar" component={LoginPage} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
