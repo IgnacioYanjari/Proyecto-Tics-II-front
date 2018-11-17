@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
 import TypeService from 'services/TypeService';
-import shortid from 'shortid';
+import TableComponent from 'components/TableComponent';
+
+const columns = [
+  {
+    title: 'Nombre',
+    dataIndex: 'name',
+    editable: true,
+    sorter: (a, b) => a.name.localeCompare(b.name),
+  },
+  {
+    title: 'Precio',
+    dataIndex: 'price',
+    editable: true,
+    sorter: (a, b) => a.price - b.price,
+  },
+  {
+    title: 'Tipo',
+    dataIndex: 'type',
+    sorter: (a, b) => a.type.localeCompare(b.type),
+  },{
+    title: 'Marca',
+    dataIndex: 'brand',
+    sorter: (a,b) => a.brand.localeCompare(b.brand),
+  },
+];
 
 class MaterialComponent extends Component {
 
@@ -10,47 +34,32 @@ class MaterialComponent extends Component {
       materials : []
     };
     this.typeService = new TypeService();
-    this.renderMaterials = this.renderMaterials.bind(this);
   }
 
   componentDidMount() {
     this.typeService.material()
-      .then(res => this.setState({ materials : res.data }));
-  }
-
-  renderMaterials() {
-    const materials = this.state.materials;
-    return materials.map( material => {
-      return(
-        <tr key={shortid.generate()}>
-          <td> {material.id} </td>
-          <td> {material.name} </td>
-          <td> {material.price} </td>
-          <td> {material.type} </td>
-          <td> {material.brand} </td>
-        </tr>
-      );
-    })
+      .then(res => {
+        res.data.forEach(element => element.key = element.id);
+        this.setState({ materials : res.data })
+      });
   }
 
   render() {
+    const materialsLen = this.state.materials.length;
     return (
       <div className="table-responsive">
-        <h4 className="text-center"> Materiales </h4>
-        <table className="table table-bordered table-sm table-hover">
-          <thead>
-            <tr>
-              <th className="scope">#</th>
-              <th className="scope">Nombre</th>
-              <th className="scope">Precio</th>
-              <th className="scope">Tipo</th>
-              <th className="scope">Marca</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderMaterials()}
-          </tbody>
-        </table>
+        {
+          (materialsLen !== 0) ?
+          (
+            <div>
+              <h4 className="text-center"> Materiales </h4>
+              <TableComponent data={this.state.materials} columns={columns} />
+            </div>
+          ) : (
+            <div>
+            </div>
+          )
+        }
       </div>
     );
   }
