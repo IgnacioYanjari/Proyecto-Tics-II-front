@@ -33,7 +33,7 @@ class AboutPage extends Component {
                   <div className = "card-header text-center" >
                     <h4 > Lista de licitaciones < /h4>
                   </div>
-                  <div className = "card-body scroll mb-3" >
+                  <div className = "card-body mb-3" >
                     <TenderComponent tenders={tenders}/>
                 </div>
               </div>

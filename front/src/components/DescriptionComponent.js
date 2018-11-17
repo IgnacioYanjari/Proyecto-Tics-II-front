@@ -15,13 +15,13 @@ class DescriptionComponent extends Component {
       if (count === 0) {
         count = count + 1;
         return (
-          <a className="nav-item nav-link mb-3 active" id={`nav-${data.name}-tab`} data-toggle="tab" href={`#nav-${data.name}`} role="tab" aria-controls={`nav-${data.name}}`} aria-selected="true">
+          <a key={shortid.generate()} className="nav-item nav-link mb-3 active" id={`nav-${data.name}-tab`} data-toggle="tab" href={`#nav-${data.name}`} role="tab" aria-controls={`nav-${data.name}}`} aria-selected="true">
             {data.title}
           </a>
         );
       } else {
         return (
-          <a className="nav-item nav-link mb-3" id={`nav-${data.name}-tab`} data-toggle="tab" href={`#nav-${data.name}`} role="tab" aria-controls={`nav-${data.name}}`} aria-selected="true">
+          <a key={shortid.generate()} className="nav-item nav-link mb-3" id={`nav-${data.name}-tab`} data-toggle="tab" href={`#nav-${data.name}`} role="tab" aria-controls={`nav-${data.name}}`} aria-selected="true">
             {data.title}
           </a>
         );
@@ -35,13 +35,13 @@ class DescriptionComponent extends Component {
       if (count === 0) {
         count = count + 1;
         return (
-          <div className="tab-pane fade show active" id={`nav-${data.name}`} role="tabpanel" aria-labelledby={`nav-${data.name}-tab`}>
+          <div key={shortid.generate()} className="tab-pane fade show active" id={`nav-${data.name}`} role="tabpanel" aria-labelledby={`nav-${data.name}-tab`}>
             {data.content}
           </div>
         );
       } else {
         return (
-          <div className="tab-pane fade" id={`nav-${data.name}`} role="tabpanel" aria-labelledby={`nav-${data.name}-tab`}>
+          <div key={shortid.generate()} className="tab-pane fade" id={`nav-${data.name}`} role="tabpanel" aria-labelledby={`nav-${data.name}-tab`}>
             {data.content}
           </div>
         );
