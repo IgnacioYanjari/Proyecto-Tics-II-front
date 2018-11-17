@@ -35,25 +35,27 @@ class SupplyComponent extends Component {
     this.typeService = new TypeService();
   }
 
-  componentDidMount() {
-    this.typeService.supplies()
-      .then(res => this.setState({ supplies : res.data }));
+  formatPrice(price) {
+    let aux = '';
+    price = price.toString();
+    for (let i = 0; i < price.length; i++) {
+      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
+      else aux = price[price.length -1 - i] + aux;
+    }
+    return aux;
   }
 
-  // renderSupplies() {
-  //   const supplies = this.state.supplies;
-  //   return supplies.map( supply => {
-  //     return(
-  //       <tr key={shortid.generate()}>
-  //         <td> {supply.id} </td>
-  //         <td> {supply.name} </td>
-  //         <td> {supply.price} </td>
-  //         <td> {supply.type} </td>
-  //         <td> {supply.brand} </td>
-  //       </tr>
-  //     );
-  //   });
-  // }
+  componentDidMount() {
+    this.typeService.supplies()
+      .then(res => {
+        res.data.forEach(element =>{
+          element.key = element.id
+          element.price = this.formatPrice(element.price);
+        });
+        this.setState({ supplies : res.data })
+      });
+  }
+
 
   render() {
     const suppliesLen = this.state.supplies.length;

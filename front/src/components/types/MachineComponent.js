@@ -34,12 +34,24 @@ class MachineComponent extends Component {
     this.typeService = new TypeService();
   }
 
+  formatPrice(price) {
+    let aux = '';
+    price = price.toString();
+    for (let i = 0; i < price.length; i++) {
+      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
+      else aux = price[price.length -1 - i] + aux;
+    }
+    return aux;
+  }
+
   componentDidMount() {
     this.typeService.machines()
       .then(res => {
         res.data.forEach(element => {
+          element.key = element.id;
           element.weight = (element.weight) ? element.weight : '';
           element.weight_type = (element.weight_type) ? element.weight_type : '';
+          element.price = this.formatPrice(element.price);
         })
         this.setState({ machines : res.data })
       });
