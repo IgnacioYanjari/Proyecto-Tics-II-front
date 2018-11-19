@@ -61,12 +61,14 @@ class MainService {
             headers,
             ...options
         }).then(res => this._checkStatus(res, messageSuccess, messageFail))
-          .then(response => {
-            if(response) return response.json();
+          .then( async(response) => {
+            if(response) {
+              return response.json();
+            };
           });
     }
 
-    _checkStatus(response, messageSuccess = null, messageFail = null) {
+    _checkStatus = async(response, messageSuccess = null, messageFail = null) => {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
             if(messageSuccess)

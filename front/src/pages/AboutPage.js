@@ -22,50 +22,52 @@ for (var i = 0; i < 200; i++) {
   })
 }
 
+const description = [
+  {
+    name: 'dg',
+    title: 'Desripción general',
+    content: 'Esto es una descripción general',
+  }, {
+      name: 'ma',
+      title: 'Materiales',
+      content: 'Esto es un material',
+  }, {
+      name: 'in',
+      title: 'Insumos',
+      content: 'Esto es un insumo',
+  }, {
+      name: 'mo',
+      title: 'Mano de obra',
+      content: 'Esto es una mano de obra',
+  }, {
+      name: 'mq',
+      title: 'Maquinaria',
+      content: 'Esto es una maquinaria'
+  }, {
+      name: 'gg',
+      title: 'Gastos generales',
+      content: 'Esto es un gasto general'
+  }
+];
+
 class AboutPage extends Component {
     render() {
         return (
           <div >
             <HeaderComponent / >
-            <div className = "row container-fluid" >
-              <div className = "col-lg-4" >
-                <div className = "card mt-3 ml-1 mr-1" >
-                  <div className = "card-header text-center" >
+            <div className="row container-fluid" >
+              <div className="col-lg-4" >
+                <div className="card mt-3 ml-1 mr-1" >
+                  <div className="card-header text-center" >
                     <h4 > Lista de licitaciones < /h4>
                   </div>
-                  <div className = "card-body mb-3" >
+                  <div className="card-body scroll mb-3" >
                     <TenderComponent tenders={tenders}/>
                 </div>
               </div>
               </div>
-              <div className = "col-lg-8" >
-                <DescriptionComponent description = {
-                    [{
-                        name: 'dg',
-                        title: 'Desripción general',
-                        content: 'Esto es una descripción general',
-                    }, {
-                        name: 'ma',
-                        title: 'Materiales',
-                        content: 'Esto es un material',
-                    }, {
-                        name: 'in',
-                        title: 'Insumos',
-                        content: 'Esto es un insumo',
-                    }, {
-                        name: 'mo',
-                        title: 'Mano de obra',
-                        content: 'Esto es una mano de obra',
-                    }, {
-                        name: 'mq',
-                        title: 'Maquinaria',
-                        content: 'Esto es una maquinaria'
-                    }, {
-                        name: 'gg',
-                        title: 'Gastos generales',
-                        content: 'Esto es un gasto general'
-                    }]
-                }/>
+              <div className="col-lg-8" >
+                <DescriptionComponent description = {description}/>
               </div>
             </div>
           </div>

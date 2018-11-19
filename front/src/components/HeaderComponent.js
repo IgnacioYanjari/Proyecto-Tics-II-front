@@ -55,7 +55,7 @@ class HeaderComponent extends Component {
               <Link className="nav-link" to="/licitaciones">Licitaciones</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/tipos">Tipos</Link>
+              <Link className="nav-link" to="/productos">Productos</Link>
             </li>
             {this.renderButtons()}
           </ul>

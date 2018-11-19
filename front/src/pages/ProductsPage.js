@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import HeaderComponent from 'components/HeaderComponent';
-import MaterialComponent from 'components/types/MaterialComponent';
-import SupplyComponent from 'components/types/SupplyComponent';
-import MachineComponent from 'components/types/MachineComponent';
+import MaterialComponent from 'components/products/MaterialComponent';
+import SupplyComponent from 'components/products/SupplyComponent';
+import MachineComponent from 'components/products/MachineComponent';
 
-class TypesPage extends Component {
+class ProductsPage extends Component {
 
   render() {
     return (
@@ -20,4 +20,4 @@ class TypesPage extends Component {
   }
 }
 
-export default TypesPage;
+export default ProductsPage;
