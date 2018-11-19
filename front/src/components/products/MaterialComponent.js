@@ -159,9 +159,6 @@ class EditableTable extends React.Component {
         let {name, price, id} = newData[index];
         price = parseInt(price.split('.').join(''), 10);
         this.productService.updateMaterial({name, price}, id)
-          .then(res => {
-            console.log(res);
-          });
         // Asigna el valor en la tabla
         this.setState({ data: newData, editingKey: '' });
       } else {
