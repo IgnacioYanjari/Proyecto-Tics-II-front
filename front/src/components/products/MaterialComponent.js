@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductService from 'services/ProductService';
+import CreateMaterial from 'components/modals/CreateMaterial';
 import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
 import shortid from 'shortid';
 
@@ -124,8 +125,10 @@ class EditableTable extends React.Component {
     let aux = '';
     price = price.toString();
     for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
-      else aux = price[price.length -1 - i] + aux;
+      if((i+1) % 3 === 0 && i !== price.length - 1 )
+        aux = '.' + price[price.length - 1 - i] + aux;
+      else
+        aux = price[price.length -1 - i] + aux;
     }
     return aux;
   }
@@ -199,9 +202,7 @@ class EditableTable extends React.Component {
 
     return (
       <Table
-        key={shortid.generate()}
         className = "mt-3"
-        rowKey={record => record.key}
         components={components}
         bordered
         dataSource={this.state.data}
@@ -220,6 +221,7 @@ class MaterialComponent extends Component {
       materials : []
     };
     this.productService = new ProductService();
+    this.loadMaterial = this.loadMaterial.bind(this);
   }
 
   formatPrice(price) {
@@ -234,7 +236,7 @@ class MaterialComponent extends Component {
     return aux;
   }
 
-  componentDidMount() {
+  loadMaterial() {
     this.productService.getMaterial()
       .then(res => {
         res.data.forEach(element =>{
@@ -243,6 +245,10 @@ class MaterialComponent extends Component {
         });
         this.setState({ materials : res.data })
       });
+  }
+
+  componentDidMount() {
+    this.loadMaterial();
   }
 
 
@@ -254,7 +260,8 @@ class MaterialComponent extends Component {
           (materials.length !== 0) ?
           (
             <div>
-              <h4 className="text-center"> Materiales </h4>
+              <h4 className="text-center mt-3"> Materiales</h4>
+              <CreateMaterial refreshTable={this.loadMaterial}/>
               <EditableTable key={shortid.generate()} data={materials} />
             </div>
           ) : (

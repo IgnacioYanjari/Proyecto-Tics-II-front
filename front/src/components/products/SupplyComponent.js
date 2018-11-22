@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductService from 'services/ProductService';
+import CreateSupply from 'components/modals/CreateSupply';
 import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
 import shortid from 'shortid';
 
@@ -122,8 +123,10 @@ class EditableTable extends React.Component {
     let aux = '';
     price = price.toString();
     for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
-      else aux = price[price.length -1 - i] + aux;
+      if((i+1) % 3 === 0 && i !== price.length - 1 )
+        aux = '.' + price[price.length - 1 - i] + aux;
+      else
+        aux = price[price.length -1 - i] + aux;
     }
     return aux;
   }
@@ -143,7 +146,6 @@ class EditableTable extends React.Component {
       }
       const newData = [...this.state.data];
       const index = newData.findIndex(item => key === item.key);
-      console.log('index', index);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -155,7 +157,7 @@ class EditableTable extends React.Component {
           newData[index]['price'] = newData[index]['price'].split('.').join('')
           newData[index]['price'] = this.formatPrice(newData[index]['price']);
         }
-        let {name, price, id} = item;
+        let {name, price, id} = newData[index];
         price = parseInt(price.split('.').join(''), 10);
         this.productService.updateSupply({name, price}, id)
         // Asigna el valor en la tabla
@@ -198,9 +200,7 @@ class EditableTable extends React.Component {
 
     return (
       <Table
-        key={shortid.generate()}
         className = "mt-3"
-        rowKey={record => record.key}
         components={components}
         bordered
         dataSource={this.state.data}
@@ -219,6 +219,7 @@ class SupplyComponent extends Component {
       supplies : []
     };
     this.productService = new ProductService();
+    this.loadSupplies = this.loadSupplies.bind(this);
   }
 
   formatPrice(price) {
@@ -233,7 +234,7 @@ class SupplyComponent extends Component {
     return aux;
   }
 
-  componentDidMount() {
+  loadSupplies() {
     this.productService.getSupplies()
       .then(res => {
         res.data.forEach(element =>{
@@ -244,6 +245,10 @@ class SupplyComponent extends Component {
       });
   }
 
+  componentDidMount() {
+    this.loadSupplies();
+  }
+
   render() {
     const suppliesLen = this.state.supplies.length;
     return (
@@ -252,7 +257,10 @@ class SupplyComponent extends Component {
           (suppliesLen !== 0) ?
           (
             <div>
-              <h4 className="text-center"> Insumos </h4>
+              <h4 className="text-center mt-3">
+                Insumos
+              </h4>
+              <CreateSupply refreshTable={this.loadSupplies}/>
               <EditableTable key={shortid.generate()} data={this.state.supplies}/>
             </div>
           ) : (

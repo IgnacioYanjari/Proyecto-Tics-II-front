@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductService from 'services/ProductService';
+import CreateMachine from 'components/modals/CreateMachine';
 import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
 import shortid from 'shortid';
 
@@ -81,6 +82,10 @@ class EditableTable extends React.Component {
         dataIndex: 'weightType',
         sorter: (a,b) => a.weightType.localeCompare(b.weightType)
       },{
+        title: 'Tipo',
+        dataIndex: 'type',
+        sorter: (a,b) => a.weightType.localeCompare(b.weightType)
+      },{
         title: 'Operaciones',
         dataIndex: 'operation',
         render: (text, record) => {
@@ -122,8 +127,10 @@ class EditableTable extends React.Component {
     let aux = '';
     price = price.toString();
     for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
-      else aux = price[price.length -1 - i] + aux;
+      if((i+1) % 3 === 0 && i !== price.length - 1 )
+        aux = '.' + price[price.length - 1 - i] + aux;
+      else
+        aux = price[price.length -1 - i] + aux;
     }
     return aux;
   }
@@ -197,9 +204,7 @@ class EditableTable extends React.Component {
 
     return (
       <Table
-        key={shortid.generate()}
         className = "mt-3"
-        rowKey={record => record.key}
         components={components}
         bordered
         dataSource={this.state.data}
@@ -210,7 +215,6 @@ class EditableTable extends React.Component {
   }
 }
 
-
 class MachineComponent extends Component {
 
   constructor(props) {
@@ -219,6 +223,7 @@ class MachineComponent extends Component {
       machines : []
     };
     this.productService = new ProductService();
+    this.loadMachines = this.loadMachines.bind(this);
   }
 
   formatPrice(price) {
@@ -233,7 +238,7 @@ class MachineComponent extends Component {
     return aux;
   }
 
-  componentDidMount() {
+  loadMachines() {
     this.productService.getMachines()
       .then(res => {
         res.data.forEach(element => {
@@ -246,6 +251,10 @@ class MachineComponent extends Component {
       });
   }
 
+  componentDidMount() {
+    this.loadMachines();
+  }
+
   render() {
     const machinesLen = this.state.machines.length;
     return (
@@ -254,7 +263,8 @@ class MachineComponent extends Component {
           (machinesLen !== 0) ?
           (
             <div>
-              <h4 className="text-center"> Maquinaría </h4>
+              <h4 className="text-center mt-3"> Maquinaría </h4>
+              <CreateMachine refreshTable={this.loadMachines}/>
               <EditableTable key={shortid.generate()} data={this.state.machines}/>
             </div>
           ) : (

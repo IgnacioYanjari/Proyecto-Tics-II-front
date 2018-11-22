@@ -3,6 +3,15 @@ import HeaderComponent from 'components/HeaderComponent';
 import MaterialComponent from 'components/products/MaterialComponent';
 import SupplyComponent from 'components/products/SupplyComponent';
 import MachineComponent from 'components/products/MachineComponent';
+import AdminLinks from 'components/AdminLinks';
+
+const links = [{
+  name: 'Tipos',
+  url: '/tipos'
+},{
+  name: 'Trabajadores',
+  url: '/trabajadores'
+}];
 
 class ProductsPage extends Component {
 
@@ -10,7 +19,8 @@ class ProductsPage extends Component {
     return (
       <div>
         <HeaderComponent/>
-        <div className="text-center mt-3 container">
+        <AdminLinks links={links} />
+        <div className="text-center mt-3 container-fluid">
               <MaterialComponent />
               <SupplyComponent />
               <MachineComponent />

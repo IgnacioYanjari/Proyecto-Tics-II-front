@@ -53,6 +53,33 @@ class ProductService extends MainService {
       })
     }
 
+    createMachine(data) {
+      return this.fetch(`${this.domain}/products/machines`,{
+        method: 'POST',
+        body: JSON.stringify(data),
+      },'Maquinaria creada con éxito', 'Error').then(res => {
+          return Promise.resolve(res);
+      });
+    }
+
+    createMaterial(data) {
+      return this.fetch(`${this.domain}/products/materials`,{
+        method: 'POST',
+        body: JSON.stringify(data),
+      },'Material creado con éxito', 'Error').then(res => {
+          return Promise.resolve(res);
+      });
+    }
+
+    createSupply(data) {
+      return this.fetch(`${this.domain}/products/supplies`,{
+        method: 'POST',
+        body: JSON.stringify(data),
+      },'Material creado con éxito', 'Error').then(res => {
+          return Promise.resolve(res);
+      });
+    }
+
 }
 
 export default ProductService;

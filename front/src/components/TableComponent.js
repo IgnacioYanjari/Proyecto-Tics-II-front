@@ -181,9 +181,7 @@ class TableComponent extends Component {
 
     return (
       <Table
-        key={shortid.generate()}
         className = "mt-3"
-        rowKey={record => record.key}
         components={components}
         bordered
         dataSource={this.state.data}
