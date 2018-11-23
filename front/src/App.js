@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Redirect} from 'react-router';
 import MainPage from 'pages/MainPage';
 import AboutPage from 'pages/AboutPage';
+import CreatePage from 'pages/CreatePage';
 import LoginPage from 'pages/LoginPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import AuthService from 'components/AuthService';
@@ -17,6 +18,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={MainPage}/>
           <PrivateRoute exact path="/licitaciones" component={AboutPage} />
+          <PrivateRoute exact path="/crear" component={CreatePage} />
           <Route exact path="/ingresar" component={LoginPage} />
           <Route path="*" component={NotFoundPage} />
         </Switch>

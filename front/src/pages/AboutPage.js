@@ -174,7 +174,7 @@ class AboutPage extends Component {
             </div>
           </div>
           <div className="col-lg-8">
-            <DescriptionComponent description={[{
+            <DescriptionComponent descriptions={[{
                 name : 'dg',
                 title : 'Desripción general',
                 content : 'Esto es una descripción general',

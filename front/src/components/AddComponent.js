@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
 
-class DescriptionComponent extends Component {
+class AddComponent extends Component {
 
   constructor(props) {
     super(props)
     this.renderTitles = this.renderTitles.bind(this);
     this.renderContent = this.renderContent.bind(this);
-    this.renderDescription = this.renderDescription.bind(this);
+    this.renderAdd = this.renderAdd.bind(this);
   }
 
   renderTitles(value) {
@@ -62,21 +62,21 @@ class DescriptionComponent extends Component {
     })
   }
 
-  renderDescription() {
-    const descriptions = this.props.descriptions
+  renderAdd() {
+    const add = this.props.adds
     return (
       <div key={shortid.generate()}>
         <div className="card text-center mt-3 mr-3 ml-3 mb-3">
           <div className="card text-center mt-3 mr-3 ml-3 mb-3">
             <nav className="card-header-tabs">
               <div className="nav nav-tabs nav-pills nav-fill" id="-nav-tab" role="tablist">
-                {this.renderTitles(descriptions)}
+                {this.renderTitles(add)}
               </div>
             </nav>
           </div>
           <div className="card-body">
             <div className="tab-content" id="nav-tabContent">
-              {this.renderContent(descriptions)}
+              {this.renderContent(add)}
             </div>
           </div>
         </div>
@@ -88,10 +88,10 @@ class DescriptionComponent extends Component {
   render() {
     return (
       <div>
-        {this.renderDescription()}
+        {this.renderAdd()}
       </div>
     );
   }
 }
 
-export default DescriptionComponent;
+export default AddComponent;

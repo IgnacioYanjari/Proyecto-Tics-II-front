@@ -4,33 +4,33 @@ import AuthService from 'components/AuthService';
 
 class HeaderComponent extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.Auth = new AuthService();
     this.handleLogout = this.handleLogout.bind(this);
-    this.state = { redirect : false};
+    this.state = { redirect: false };
   }
 
-  handleLogout(){
+  handleLogout() {
     this.Auth.logout();
   }
 
-  renderButtons(){
-    if(this.Auth.loggedIn())
+  renderButtons() {
+    if (this.Auth.loggedIn())
       return (
         <li className="nav-item">
-            <Link className="nav-link" to="/"
-              onClick={this.handleLogout}>
-              Cerrar sesión
+          <Link className="nav-link" to="/"
+            onClick={this.handleLogout}>
+            Cerrar sesión
             </Link>
         </li>
       )
 
     return (<li className="nav-item">
-        <Link className="nav-link" to="/ingresar">
-          Iniciar sesión
+      <Link className="nav-link" to="/ingresar">
+        Iniciar sesión
         </Link>
-      </li>)
+    </li>)
   }
 
 
@@ -53,6 +53,9 @@ class HeaderComponent extends Component {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/licitaciones">Licitaciones</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/crear">Crear Licitación</Link>
             </li>
             {this.renderButtons()}
           </ul>
