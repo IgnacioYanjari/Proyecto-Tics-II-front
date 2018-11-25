@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthService from 'components/AuthService';
+import AuthService from 'services/AuthService';
 import {Redirect} from 'react-router';
 
 class Login extends Component {
