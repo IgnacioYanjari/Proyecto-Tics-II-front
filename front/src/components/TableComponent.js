@@ -93,7 +93,8 @@ class TableComponent extends Component {
               )}
             </div>
           );
-        }
+        },
+        align: 'center',
       }],
     };
   }
@@ -113,16 +114,6 @@ class TableComponent extends Component {
     this.setState({ editingKey: key });
   }
 
-  formatPrice(price) {
-    let aux = '';
-    price = price.toString();
-    for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0) aux = '.' + price[price.length - 1 - i] + aux;
-      else aux = price[price.length -1 - i] + aux;
-    }
-    return aux;
-  }
-
   save(form, key) {
     form.validateFields((error, row) => {
       if (error) {
@@ -136,11 +127,6 @@ class TableComponent extends Component {
           ...item,
           ...row,
         });
-        if( newData[index]['price'] ){
-          newData[index]['price'] = newData[index]['price'].replace(/\D/g,'');
-          newData[index]['price'] = newData[index]['price'].split('.').join('')
-          newData[index]['price'] = this.formatPrice(newData[index]['price']);
-        }
         // Asigna el valor en la tabla
         this.setState({ data: newData, editingKey: '' });
       } else {
@@ -182,6 +168,7 @@ class TableComponent extends Component {
     return (
       <Table
         className = "mt-3"
+        rowKey = {shortid.generate()}
         components={components}
         bordered
         dataSource={this.state.data}

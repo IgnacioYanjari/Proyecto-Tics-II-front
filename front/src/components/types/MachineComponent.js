@@ -181,41 +181,43 @@ class EditableTable extends React.Component {
   }
 }
 
-class ClientComponent extends Component {
+class MachineComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      clients : []
+      machines : []
     };
     this.typeService = new TypeService();
-    this.loadClients = this.loadClients.bind(this);
+    this.loadMachines = this.loadMachines.bind(this);
   }
 
-  loadClients() {
-    this.typeService.getClients()
+  loadMachines() {
+    this.typeService.getMachines()
       .then(res => {
         res.data.forEach(element => {
           element.key = shortid.generate();
+          element.weight = (element.weight) ? element.weight : '';
+          element.weightType = (element.weightType) ? element.weightType : '';
         })
-        this.setState({ clients : res.data })
+        this.setState({ machines : res.data })
       });
   }
 
   componentDidMount() {
-    this.loadClients();
+    this.loadMachines();
   }
 
   render() {
-    const clientsLen = this.state.clients.length;
+    const machinesLen = this.state.machines.length;
     return (
       <div className="table-responsive">
         {
-          (clientsLen !== 0) ?
+          (machinesLen !== 0) ?
           (
             <div>
-              <h4 className="text-center mt-3"> Tipos de Clientes </h4>
-              <EditableTable key={shortid.generate()} data={this.state.clients}/>
+              <h4 className="text-center mt-3"> Tipos de Maquinaría </h4>
+              <EditableTable key={shortid.generate()} data={this.state.machines}/>
             </div>
           ) : (
             <div>
@@ -228,4 +230,4 @@ class ClientComponent extends Component {
   }
 }
 
-export default ClientComponent;
+export default MachineComponent;

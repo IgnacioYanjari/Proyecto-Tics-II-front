@@ -68,19 +68,23 @@ class EditableTable extends React.Component {
         dataIndex: 'name',
         editable: true,
         sorter: (a, b) => a.name.localeCompare(b.name),
+        align:'center',
       }, {
         title: 'Precio',
         dataIndex: 'price',
         editable: true,
         sorter: (a, b) => a.price - b.price,
+        align:'center',
       }, {
         title: 'Tipo',
         dataIndex: 'type',
         sorter: (a, b) => a.type.localeCompare(b.type),
+        align:'center',
       }, {
         title: 'Marca',
         dataIndex: 'brand',
         sorter: (a,b) => a.brand.localeCompare(b.brand),
+        align:'center',
       },{
         title: 'Operaciones',
         dataIndex: 'operation',
@@ -113,7 +117,8 @@ class EditableTable extends React.Component {
               )}
             </div>
           );
-        }
+        },
+        align:'center',
       }
     ];
     this.productService = new ProductService();

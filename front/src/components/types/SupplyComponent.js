@@ -68,7 +68,7 @@ class EditableTable extends React.Component {
         editable: true,
         sorter: (a, b) => a.name.localeCompare(b.name),
         align:'center',
-      },{
+      }, {
         title: 'Operaciones',
         dataIndex: 'operation',
         render: (text, record) => {
@@ -181,41 +181,41 @@ class EditableTable extends React.Component {
   }
 }
 
-class ClientComponent extends Component {
+class SupplyComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      clients : []
+      supplies : []
     };
     this.typeService = new TypeService();
-    this.loadClients = this.loadClients.bind(this);
+    this.loadSupplies = this.loadSupplies.bind(this);
   }
 
-  loadClients() {
-    this.typeService.getClients()
+  loadSupplies() {
+    this.typeService.getSupplies()
       .then(res => {
         res.data.forEach(element => {
           element.key = shortid.generate();
         })
-        this.setState({ clients : res.data })
+        this.setState({ supplies : res.data })
       });
   }
 
   componentDidMount() {
-    this.loadClients();
+    this.loadSupplies();
   }
 
   render() {
-    const clientsLen = this.state.clients.length;
+    const suppliesLen = this.state.supplies.length;
     return (
       <div className="table-responsive">
         {
-          (clientsLen !== 0) ?
+          (suppliesLen !== 0) ?
           (
             <div>
-              <h4 className="text-center mt-3"> Tipos de Clientes </h4>
-              <EditableTable key={shortid.generate()} data={this.state.clients}/>
+              <h4 className="text-center mt-3"> Tipos de Insumos </h4>
+              <EditableTable key={shortid.generate()} data={this.state.supplies}/>
             </div>
           ) : (
             <div>
@@ -228,4 +228,4 @@ class ClientComponent extends Component {
   }
 }
 
-export default ClientComponent;
+export default SupplyComponent;

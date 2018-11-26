@@ -18,7 +18,7 @@ class CreateMaterial extends Component {
   }
 
   componentDidMount(){
-    this.typeService.getMaterial()
+    this.typeService.getMaterials()
     .then(res => {
       this.setState({
         types: res.data,
