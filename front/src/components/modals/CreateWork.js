@@ -16,7 +16,8 @@ class CreateWork extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let {name} = this.state;
-    return this.props.onCreateWork(name);
+    this.props.onCreateWork(name);
+    return this.closeModal();
   }
 
   handleChange(event, name) {
@@ -27,35 +28,20 @@ class CreateWork extends Component {
     const {name} = this.state;
     return (
       <div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          id="modalButton"
-          data-toggle="modal"
-          data-target="#modalWork"
-        >
+        <button type="button"className="btn btn-primary" id="modalButton"
+          data-toggle="modal" data-target="#modalWork">
           Crear Obra
         </button>
-        <div
-          className="modal fade"
-          id="modalWork"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
+        <div className="modal fade" id="modalWork" tabIndex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalCenterTitle">
                   Obra
                 </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
+                <button type="button" className="close" data-dismiss="modal"
+                  aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -66,7 +52,7 @@ class CreateWork extends Component {
                     <input
                       type="text"
                       value={name}
-                      onChange={e => this.handleChange(e, "name")}
+                      onChange={e => this.handleChange(e, 'name')}
                       className="form-control"
                       id="name"
                       required="required"
@@ -74,11 +60,8 @@ class CreateWork extends Component {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
+                  <button type="button" className="btn btn-secondary"
+                    data-dismiss="modal">
                     Cerrar
                   </button>
                   <button type="submit" className="btn btn-primary">

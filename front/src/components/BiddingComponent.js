@@ -9,25 +9,23 @@ class BiddingComponent extends Component {
     this.renderTitles = this.renderTitles.bind(this);
     this.handleWork = this.handleWork.bind(this);
     this.state = {
-      name: ""
+      names: []
     };
   }
 
-  handleWork = value => {
-    this.setState({name: value});
+  handleWork(value) {
+    let {names} = this.state;
+    names.push(value);
+    console.log(names);
+    this.setState({ names: names});
   };
 
   renderTitles(value) {
     return value.map(data => {
       return (
-        <button
-          class="btn btn-link"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseOne"
-          aria-expanded="true"
-          aria-controls="collapseOne"
-        >
+        <button class="btn btn-link" type="button" data-toggle="collapse"
+          data-target="#collapseOne" aria-expanded="true"
+          aria-controls="collapseOne">
           Obra
         </button>
       );
@@ -35,6 +33,7 @@ class BiddingComponent extends Component {
   }
 
   renderBidding() {
+    const {names} = this.state;
     return (
       <div key={shortid.generate()}>
         <div className="container">
@@ -45,14 +44,9 @@ class BiddingComponent extends Component {
                   <h5 className="mb-0">
                     <div className="row">
                       <div className="col">
-                        <button
-                          className="btn btn-link"
-                          type="button"
-                          data-toggle="collapse"
-                          data-target="#collapseOne"
-                          aria-expanded="true"
-                          aria-controls="collapseOne"
-                        >
+                        <button className="btn btn-link" type="button"
+                          data-toggle="collapse" data-target="#collapseOne"
+                          aria-expanded="true" aria-controls="collapseOne">
                           Obra
                         </button>
                       </div>
@@ -62,13 +56,13 @@ class BiddingComponent extends Component {
                     </div>
                   </h5>
                 </div>
-                <div
-                  id="collapseOne"
-                  className="collapse show"
-                  aria-labelledby="headingOne"
-                  data-parent="#obraTitle"
-                >
-                  <div className="card-body">{this.state.name}</div>
+                <div id="collapseOne" className="collapse show"
+                  aria-labelledby="headingOne" data-parent="#obraTitle">
+                  <div className="card-body">
+                    {
+                      names.map( el => <p key={shortid.generate()}> {el} </p>)
+                    }
+                  </div>
                 </div>
               </div>
             </div>
