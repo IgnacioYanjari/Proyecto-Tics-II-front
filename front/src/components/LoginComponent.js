@@ -1,64 +1,63 @@
-import React, { Component } from 'react';
-import AuthService from 'services/AuthService';
-import {Redirect} from 'react-router';
+import React, {Component} from "react";
+import AuthService from "services/AuthService";
+import {Redirect} from "react-router";
 
 class Login extends Component {
-    constructor(){
-        super();
-        this.handleChange = this.handleChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.Auth = new AuthService();
-        this.state = {
-          redirect: false
-        }
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.Auth = new AuthService();
+    this.state = {
+      redirect: false
+    };
+  }
+
+  componentWillMount() {
+    if (this.Auth.loggedIn()) {
+      this.setState({redirect: true});
     }
+  }
 
-    componentWillMount(){
-      if(this.Auth.loggedIn()){
-        this.setState({redirect : true});
-      }
-    }
+  handleFormSubmit(e) {
+    e.preventDefault();
 
-    handleFormSubmit(e){
-        e.preventDefault();
+    this.Auth.login(this.state.username, this.state.password)
+      .then(res => {
+        if (res) this.setState({redirect: true});
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
 
-        this.Auth.login(this.state.username,this.state.password)
-          .then(res =>{
-            if(res)
-              this.setState({redirect : true});
-          })
-          .catch(err =>{
-              alert(err);
-          })
-    }
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+  }
 
-    handleChange(e){
-        this.setState({ [e.target.name]: e.target.value });
-    }
-
-    renderForm(){
-      return (
-        <div className="text-center mt-5">
-          <div className="card text-center ml-4 mr-4">
-            <div className="card-header">
-              <div >Ingresar al sistema</div>
-            </div>
-            <div className="card-body">
-            <form onSubmit={(e) => this.handleFormSubmit(e)}>
+  renderForm() {
+    return (
+      <div className="text-center mt-5">
+        <div className="card text-center ml-4 mr-4">
+          <div className="card-header">
+            <div>Ingresar al sistema</div>
+          </div>
+          <div className="card-body">
+            <form onSubmit={e => this.handleFormSubmit(e)}>
               <div className="form-group row">
                 <div className="col-lg-12">
                   <label htmlFor="username">Usuario</label>
                 </div>
                 <div className="offset-lg-3 col-lg-6">
                   <input
-                      id="username"
-                      className="form-control"
-                      autoComplete = "username"
-                      placeholder = "Rut cuenta"
-                      name="username"
-                      type="text"
-                      onChange={this.handleChange}
-                      required
+                    id="username"
+                    className="form-control"
+                    autoComplete="username"
+                    placeholder="Rut cuenta"
+                    name="username"
+                    type="text"
+                    onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>
@@ -68,34 +67,34 @@ class Login extends Component {
                 </div>
                 <div className="offset-lg-3 col-lg-6">
                   <input
-                      id="password"
-                      className="form-control"
-                      autoComplete = "new-password"
-                      placeholder = "Contraseña"
-                      name="password"
-                      type="password"
-                      onChange={this.handleChange}
-                      required
+                    id="password"
+                    className="form-control"
+                    autoComplete="new-password"
+                    placeholder="Contraseña"
+                    name="password"
+                    type="password"
+                    onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary">Ingresar</button>
+              <button type="submit" className="btn btn-primary">
+                Ingresar
+              </button>
             </form>
-            </div>
           </div>
         </div>
-      );
+      </div>
+    );
+  }
+
+  render() {
+    const redirect = this.state.redirect;
+    if (redirect) {
+      return <Redirect to="/" />;
     }
-
-    render() {
-        const redirect = this.state.redirect;
-        if(redirect) {
-          return <Redirect to="/"/>
-        }
-        return this.renderForm();
-    }
-
-
+    return this.renderForm();
+  }
 }
 
 export default Login;

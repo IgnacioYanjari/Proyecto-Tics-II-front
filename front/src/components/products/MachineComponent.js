@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import ProductService from 'services/ProductService';
-import CreateMachine from 'components/modals/CreateMachine';
-import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
-import shortid from 'shortid';
+import React, {Component} from "react";
+import ProductService from "services/ProductService";
+import CreateMachineProduct from "components/modals/create/MachineProduct";
+import {Table, Input, InputNumber, Popconfirm, Form} from "antd";
+import shortid from "shortid";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
 
-const EditableRow = ({ form, index, ...props }) => (
+const EditableRow = ({form, index, ...props}) => (
   <EditableContext.Provider value={form}>
     <tr {...props} />
   </EditableContext.Provider>
@@ -17,7 +17,7 @@ const EditableFormRow = Form.create()(EditableRow);
 
 class EditableCell extends React.Component {
   getInput = () => {
-    if (this.props.inputType === 'number') {
+    if (this.props.inputType === "number") {
       return <InputNumber />;
     }
     return <Input />;
@@ -35,21 +35,25 @@ class EditableCell extends React.Component {
     } = this.props;
     return (
       <EditableContext.Consumer>
-        {(form) => {
-          const { getFieldDecorator } = form;
+        {form => {
+          const {getFieldDecorator} = form;
           return (
             <td {...restProps}>
               {editing ? (
-                <FormItem style={{ margin: 0 }}>
+                <FormItem style={{margin: 0}}>
                   {getFieldDecorator(dataIndex, {
-                    rules: [{
-                      required: true,
-                      message: 'Porfavor ingresa ' + title +' !',
-                    }],
-                    initialValue: record[dataIndex],
+                    rules: [
+                      {
+                        required: true,
+                        message: "Porfavor ingresa " + title + " !"
+                      }
+                    ],
+                    initialValue: record[dataIndex]
                   })(this.getInput())}
                 </FormItem>
-              ) : restProps.children}
+              ) : (
+                restProps.children
+              )}
             </td>
           );
         }}
@@ -61,38 +65,43 @@ class EditableCell extends React.Component {
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: this.props.data, editingKey: '' };
+    this.state = {data: this.props.data, editingKey: ""};
     this.columns = [
       {
-        title: 'Nombre',
-        dataIndex: 'name',
+        title: "Nombre",
+        dataIndex: "name",
         editable: true,
         sorter: (a, b) => a.name.localeCompare(b.name),
-        align:'center',
-      },{
-        title: 'Precio',
-        dataIndex: 'price',
+        align: "center"
+      },
+      {
+        title: "Precio",
+        dataIndex: "price",
         editable: true,
         sorter: (a, b) => a.price - b.price,
-        align:'center',
-      },{
-        title: 'Peso',
-        dataIndex: 'weight',
-        sorter: (a,b) => a.weight - b.weight,
-        align:'center',
-      },{
-        title: 'Tipo de medida',
-        dataIndex: 'weightType',
-        sorter: (a,b) => a.weightType.localeCompare(b.weightType),
-        align:'center',
-      },{
-        title: 'Tipo',
-        dataIndex: 'type',
-        sorter: (a,b) => a.weightType.localeCompare(b.weightType),
-        align:'center',
-      },{
-        title: 'Operaciones',
-        dataIndex: 'operation',
+        align: "center"
+      },
+      {
+        title: "Peso",
+        dataIndex: "weight",
+        sorter: (a, b) => a.weight - b.weight,
+        align: "center"
+      },
+      {
+        title: "Tipo de medida",
+        dataIndex: "weightType",
+        sorter: (a, b) => a.weightType.localeCompare(b.weightType),
+        align: "center"
+      },
+      {
+        title: "Tipo",
+        dataIndex: "type",
+        sorter: (a, b) => a.weightType.localeCompare(b.weightType),
+        align: "center"
+      },
+      {
+        title: "Operaciones",
+        dataIndex: "operation",
         render: (text, record) => {
           const editable = this.isEditing(record);
           return (
@@ -103,8 +112,8 @@ class EditableTable extends React.Component {
                     {form => (
                       <a
                         onClick={() => this.save(form, record.key)}
-                        className = "text-primary"
-                        style={{ marginRight: 8 }}
+                        className="text-primary"
+                        style={{marginRight: 8}}
                       >
                         Guardar
                       </a>
@@ -114,43 +123,48 @@ class EditableTable extends React.Component {
                     title="Estas seguro ? "
                     onConfirm={() => this.cancel(record.key)}
                   >
-                    <a className = "text-danger" > Cancelar </a>
+                    <a className="text-danger"> Cancelar </a>
                   </Popconfirm>
                 </span>
               ) : (
-                <a className="text-primary" onClick={() => this.edit(record.key)}> Editar </a>
+                <a
+                  className="text-primary"
+                  onClick={() => this.edit(record.key)}
+                >
+                  {" "}
+                  Editar{" "}
+                </a>
               )}
             </div>
           );
         },
-        align:'center',
+        align: "center"
       }
     ];
     this.productService = new ProductService();
   }
 
   formatPrice(price) {
-    let aux = '';
+    let aux = "";
     price = price.toString();
     for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0 && i !== price.length - 1 )
-        aux = '.' + price[price.length - 1 - i] + aux;
-      else
-        aux = price[price.length -1 - i] + aux;
+      if ((i + 1) % 3 === 0 && i !== price.length - 1)
+        aux = "." + price[price.length - 1 - i] + aux;
+      else aux = price[price.length - 1 - i] + aux;
     }
     return aux;
   }
 
-  isEditing = (record) => {
+  isEditing = record => {
     return record.key === this.state.editingKey;
   };
 
   edit(key) {
-    this.setState({ editingKey: key });
+    this.setState({editingKey: key});
   }
 
   save(form, key) {
-    form.validateFields((error, row) => {
+    form.validateFields(async (error, row) => {
       if (error) {
         return;
       }
@@ -160,39 +174,38 @@ class EditableTable extends React.Component {
         const item = newData[index];
         newData.splice(index, 1, {
           ...item,
-          ...row,
+          ...row
         });
-        if( newData[index]['price'] ){
-          newData[index]['price'] = newData[index]['price'].replace(/\D/g,'');
-          newData[index]['price'] = newData[index]['price'].split('.').join('')
-          newData[index]['price'] = this.formatPrice(newData[index]['price']);
+        if (newData[index]["price"]) {
+          newData[index]["price"] = newData[index]["price"].replace(/\D/g, "");
+          newData[index]["price"] = newData[index]["price"].split(".").join("");
+          newData[index]["price"] = this.formatPrice(newData[index]["price"]);
         }
         let {name, price, id} = newData[index];
-        price = parseInt(price.split('.').join(''), 10);
-        this.productService.updateMachine({name, price}, id);
-        // Asigna el valor en la tabla
-        this.setState({ data: newData, editingKey: '' });
+        price = parseInt(price.split(".").join(""), 10);
+        let res = await this.productService.updateMachine({name, price}, id);
+        if (res.status === "success")
+          this.setState({data: newData, editingKey: ""});
       } else {
         newData.push(row);
-        this.setState({ data: newData, editingKey: '' });
+        this.setState({data: newData, editingKey: ""});
       }
     });
   }
 
   cancel = () => {
-    this.setState({ editingKey: '' });
+    this.setState({editingKey: ""});
   };
 
   render() {
     const components = {
       body: {
         row: EditableFormRow,
-        cell: EditableCell,
-      },
+        cell: EditableCell
+      }
     };
 
-    const columns = this.columns.map((col) => {
-
+    const columns = this.columns.map(col => {
       if (!col.editable) {
         return col;
       }
@@ -200,17 +213,17 @@ class EditableTable extends React.Component {
         ...col,
         onCell: record => ({
           record,
-          inputType:(col.dataIndex === 'weight') ? 'number' : 'text',
+          inputType: col.dataIndex === "weight" ? "number" : "text",
           dataIndex: col.dataIndex,
           title: col.title,
-          editing: this.isEditing(record),
-        }),
+          editing: this.isEditing(record)
+        })
       };
     });
 
     return (
       <Table
-        className = "mt-3"
+        className="mt-3"
         components={components}
         bordered
         dataSource={this.state.data}
@@ -222,39 +235,38 @@ class EditableTable extends React.Component {
 }
 
 class MachineComponent extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      machines : []
+      machines: []
     };
     this.productService = new ProductService();
     this.loadMachines = this.loadMachines.bind(this);
   }
 
   formatPrice(price) {
-    let aux = '';
+    let aux = "";
     price = price.toString();
     for (let i = 0; i < price.length; i++) {
-      if((i+1) % 3 === 0 && i !== price.length - 1)
-        aux = '.' + price[price.length - 1 - i] + aux;
-      else
-        aux = price[price.length -1 - i] + aux;
+      if ((i + 1) % 3 === 0 && i !== price.length - 1)
+        aux = "." + price[price.length - 1 - i] + aux;
+      else aux = price[price.length - 1 - i] + aux;
     }
     return aux;
   }
 
   loadMachines() {
-    this.productService.getMachines()
-      .then(res => {
+    this.productService.getMachines().then(res => {
+      if (res.status === "success") {
         res.data.forEach(element => {
           element.key = shortid.generate();
-          element.weight = (element.weight) ? element.weight : '';
-          element.weightType = (element.weightType) ? element.weightType : '';
+          element.weight = element.weight ? element.weight : "";
+          element.weightType = element.weightType ? element.weightType : "";
           element.price = this.formatPrice(element.price);
-        })
-        this.setState({ machines : res.data })
-      });
+        });
+        this.setState({machines: res.data});
+      }
+    });
   }
 
   componentDidMount() {
@@ -265,20 +277,18 @@ class MachineComponent extends Component {
     const machinesLen = this.state.machines.length;
     return (
       <div className="table-responsive">
-        {
-          (machinesLen !== 0) ?
-          (
-            <div>
-              <h4 className="text-center mt-3"> Maquinaría </h4>
-              <CreateMachine refreshTable={this.loadMachines}/>
-              <EditableTable key={shortid.generate()} data={this.state.machines}/>
-            </div>
-          ) : (
-            <div>
-            </div>
-          )
-        }
-
+        {machinesLen !== 0 ? (
+          <div>
+            <h4 className="text-center mt-3"> Maquinaría </h4>
+            <CreateMachineProduct refreshTable={this.loadMachines} />
+            <EditableTable
+              key={shortid.generate()}
+              data={this.state.machines}
+            />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }

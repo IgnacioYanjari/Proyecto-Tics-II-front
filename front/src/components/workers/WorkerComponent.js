@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import TypeService from "services/TypeService";
-import CreateMachineType from "components/modals/create/MachineType";
 import {Table, Input, InputNumber, Popconfirm, Form} from "antd";
+import WorkerService from "services/WorkerService";
+import CreateWorker from "components/modals/create/Worker";
 import shortid from "shortid";
 
 const FormItem = Form.Item;
@@ -69,9 +69,30 @@ class EditableTable extends React.Component {
     this.columns = [
       {
         title: "Nombre",
-        dataIndex: "name",
+        dataIndex: "firstName",
         editable: true,
-        sorter: (a, b) => a.name.localeCompare(b.name),
+        sorter: (a, b) => a.firstName.localeCompare(b.firstName),
+        align: "center"
+      },
+      {
+        title: "Apellido",
+        dataIndex: "lastName",
+        editable: true,
+        sorter: (a, b) => a.lastName.localeCompare(b.lastName),
+        align: "center"
+      },
+      {
+        title: "rut",
+        dataIndex: "rut",
+        editable: true,
+        sorter: (a, b) => a.rut.localeCompare(b.rut),
+        align: "center"
+      },
+      {
+        title: "Telefono",
+        dataIndex: "phone",
+        editable: true,
+        sorter: (a, b) => a.phone.localeCompare(b.phone),
         align: "center"
       },
       {
@@ -116,7 +137,18 @@ class EditableTable extends React.Component {
         align: "center"
       }
     ];
-    this.typeService = new TypeService();
+    this.workerService = new WorkerService();
+  }
+
+  formatRut(rut) {
+    let aux = "";
+    aux = "-" + rut[rut.length - 1];
+    for (let i = 1; i < rut.length; i++) {
+      if (i % 3 === 0 && i !== rut.length - 1)
+        aux = "." + rut[rut.length - 1 - i] + aux;
+      else aux = rut[rut.length - 1 - i] + aux;
+    }
+    return aux;
   }
 
   isEditing = record => {
@@ -140,10 +172,24 @@ class EditableTable extends React.Component {
           ...item,
           ...row
         });
-        let {name, id} = newData[index];
-        let res = await this.typeService.updateMachine({name}, id);
-        if (res.status === "success")
+        if (newData[index]["rut"]) {
+          newData[index]["rut"] = newData[index]["rut"].replace(/\D/g, "");
+          newData[index]["rut"] = newData[index]["rut"].split(".").join("");
+          newData[index]["rut"] = this.formatRut(newData[index]["rut"]);
+        }
+        let {firstName, lastName, rut, phone, id} = newData[index];
+        rut = rut.split(".").join("");
+        rut = rut.split("-").join("");
+        if (phone === "") phone = null;
+        let res = await this.workerService.update(
+          {firstName, lastName, rut, phone},
+          id
+        );
+        if (res.status === "success") {
+          newData[index]["phone"] = res.data.phone;
           this.setState({data: newData, editingKey: ""});
+        }
+        // Asigna el valor en la tabla
       } else {
         newData.push(row);
         this.setState({data: newData, editingKey: ""});
@@ -186,51 +232,59 @@ class EditableTable extends React.Component {
         bordered
         dataSource={this.state.data}
         columns={columns}
-        rowClassName="editable-row text-center"
+        rowClassName="editable-row"
       />
     );
   }
 }
 
-class MachineComponent extends Component {
+class WorkerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      machines: []
+      workers: []
     };
-    this.typeService = new TypeService();
-    this.loadMachines = this.loadMachines.bind(this);
+    this.workerService = new WorkerService();
+    this.loadWorkers = this.loadWorkers.bind(this);
   }
 
-  loadMachines() {
-    this.typeService.getMachines().then(res => {
+  formatRut(rut) {
+    let aux = "";
+    aux = "-" + rut[rut.length - 1];
+    for (let i = 1; i < rut.length; i++) {
+      if (i % 3 === 0 && i !== rut.length - 1)
+        aux = "." + rut[rut.length - 1 - i] + aux;
+      else aux = rut[rut.length - 1 - i] + aux;
+    }
+    return aux;
+  }
+
+  loadWorkers() {
+    this.workerService.get().then(res => {
       if (res.status === "success") {
         res.data.forEach(element => {
           element.key = shortid.generate();
-          element.weight = element.weight ? element.weight : "";
-          element.weightType = element.weightType ? element.weightType : "";
+          element.rut = this.formatRut(element.rut);
+          if (element.phone == null) element.phone = "";
         });
-        this.setState({machines: res.data});
+        this.setState({workers: res.data});
       }
     });
   }
 
   componentDidMount() {
-    this.loadMachines();
+    this.loadWorkers();
   }
 
   render() {
-    const machinesLen = this.state.machines.length;
+    const workersLen = this.state.workers.length;
     return (
       <div className="table-responsive">
-        {machinesLen !== 0 ? (
+        {workersLen !== 0 ? (
           <div>
-            <h4 className="text-center mt-3"> Tipos de Maquinaría </h4>
-            <CreateMachineType refreshTable={this.loadMachines} />
-            <EditableTable
-              key={shortid.generate()}
-              data={this.state.machines}
-            />
+            <h4 className="text-center mt-3"> Trabajadores </h4>
+            <CreateWorker refreshTable={this.loadWorkers} />
+            <EditableTable key={shortid.generate()} data={this.state.workers} />
           </div>
         ) : (
           <div />
@@ -240,4 +294,4 @@ class MachineComponent extends Component {
   }
 }
 
-export default MachineComponent;
+export default WorkerComponent;

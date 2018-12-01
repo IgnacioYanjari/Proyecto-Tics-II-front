@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import HeaderComponent from 'components/HeaderComponent';
+import React, {Component} from "react";
+import HeaderComponent from "components/HeaderComponent";
 class MainPage extends Component {
   render() {
     return (
       <div>
-        <HeaderComponent/>
+        <HeaderComponent />
         <div className="text-center mt-5">
-          <h1> Home Page </h1>
+          <h1>Home Page</h1>
         </div>
       </div>
     );
