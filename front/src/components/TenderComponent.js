@@ -6,6 +6,9 @@ class TenderComponent extends Component {
     super(props);
     this.renderTenders = this.renderTenders.bind(this);
     this.renderTypes = this.renderTypes.bind(this);
+    this.state = {
+      openId: this.props.openId
+    };
   }
 
   renderTypes(value) {
@@ -18,8 +21,23 @@ class TenderComponent extends Component {
     });
   }
 
+  openTender(id) {
+    this.props.changeTender(id);
+    this.setState({
+      openId: id
+    });
+  }
+
+  closeTender(id) {
+    this.props.closeTender(id);
+    this.setState({
+      openId: -1
+    });
+  }
+
   renderTenders() {
-    const tenders = this.props.tenders;
+    const {tenders} = this.props;
+    const {openId} = this.state;
     return tenders.map((value, index) => {
       return (
         <div key={shortid.generate()}>
@@ -29,6 +47,8 @@ class TenderComponent extends Component {
                 <button
                   type="button"
                   className="btn btn-primary align-middle btn-sm btn-block"
+                  onClick={e => this.openTender(value.id)}
+                  disabled={value.id === openId}
                 >
                   Abrir
                 </button>
@@ -37,6 +57,8 @@ class TenderComponent extends Component {
                 <button
                   type="button"
                   className="btn btn-danger align-middle btn-sm btn-block"
+                  onClick={e => this.closeTender(value.id)}
+                  disabled={value.id !== openId}
                 >
                   Cerrar
                 </button>

@@ -16,10 +16,10 @@ class HeaderComponent extends Component {
     this.Auth.logout();
   }
 
-  renderButtons() {
+  renderLogin() {
     if (this.Auth.loggedIn())
       return (
-        <li className="nav-item">
+        <li className="nav-item ">
           <Link className="nav-link" to="/" onClick={this.handleLogout}>
             Cerrar sesión
           </Link>
@@ -27,12 +27,49 @@ class HeaderComponent extends Component {
       );
 
     return (
-      <li className="nav-item">
+      <li className={`nav-item ${this.isActive("/ingresar")}`}>
         <Link className="nav-link" to="/ingresar">
           Iniciar sesión
         </Link>
       </li>
     );
+  }
+
+  renderAdmin() {
+    if (this.Auth.isAdmin()) {
+      let result = [
+        this.isActive("/productos"),
+        this.isActive("/tipos"),
+        this.isActive("/trabajadores")
+      ];
+      let active = result.find(val => val === "active");
+      if (!active) active = "";
+      return (
+        <li className={`nav-item ${active}`}>
+          <Link className="nav-link" to="/productos">
+            Administración
+          </Link>
+        </li>
+      );
+    }
+  }
+
+  renderSupervisor() {
+    if (this.Auth.isSupervisor()) {
+      return (
+        <li className={`nav-item ${this.isActive("/licitaciones")}`}>
+          <Link className="nav-link" to="/licitaciones">
+            Licitaciones
+          </Link>
+        </li>
+      );
+    }
+  }
+
+  isActive(name) {
+    let path = window.location.pathname;
+    let active = path === name ? "active" : "";
+    return active;
   }
 
   render() {
@@ -55,24 +92,16 @@ class HeaderComponent extends Component {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li className={`nav-item ${this.isActive("/")}`}>
               <Link className="nav-link" to="/">
                 Inicio
                 <span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/licitaciones">
-                Licitaciones
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/productos">
-                Administración
-              </Link>
-            </li>
-            {this.renderButtons()}
+            {this.renderSupervisor()}
+            {this.renderAdmin()}
           </ul>
+          <ul className="navbar-nav ml-auto">{this.renderLogin()}</ul>
         </div>
       </nav>
     );

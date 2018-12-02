@@ -80,6 +80,7 @@ class DescriptionComponent extends Component {
 
   render() {
     const description = this.props.description;
+    if (description.length === 0) return <div />;
     return (
       <div className="card text-center mt-3 mr-3 ml-3 mb-3">
         <div className="card-header">

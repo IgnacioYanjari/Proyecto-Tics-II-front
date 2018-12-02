@@ -23,7 +23,7 @@ class AuthService extends MainService {
       "Ingreso Realizado Correctamente",
       "Credenciales invalidas"
     ).then(res => {
-      if (res) {
+      if (res.status === "success") {
         this.setToken(res.token); // Setting the token in localStorage
         return Promise.resolve(res);
       }
@@ -33,6 +33,20 @@ class AuthService extends MainService {
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("id_token");
+  }
+
+  isAdmin() {
+    if (!this.loggedIn()) return false;
+    let isAdmin = this.getProfile().roles.find(val => val === 1);
+    if (isAdmin) return true;
+    return false;
+  }
+
+  isSupervisor() {
+    if (!this.loggedIn()) return false;
+    let isAdmin = this.getProfile().roles.find(val => val === 2);
+    if (isAdmin) return true;
+    return false;
   }
 
   getProfile() {
