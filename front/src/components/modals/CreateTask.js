@@ -1,25 +1,25 @@
 import React, {Component} from "react";
 import shortid from "shortid";
 
-class CreateWork extends Component {
+class CreateTask extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      workId: 0,
+      task: ""
     };
   }
 
   closeModal() {
-    document.getElementById("modalButton").click();
+    document.getElementById("modalButtonTask").click();
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let {name} = this.state;
-    this.props.onCreateWork({
-      name: name,
-      key1: shortid.generate(),
-      key2: shortid.generate()
+    let {task, workId} = this.state;
+    this.props.onCreateTask({
+      task,
+      workId: parseInt(workId, 10)
     });
     return this.closeModal();
   }
@@ -29,21 +29,22 @@ class CreateWork extends Component {
   }
 
   render() {
-    const {name} = this.state;
+    const {task, workId} = this.state;
+    const {works} = this.props;
     return (
       <div>
         <button
           type="button"
           className="btn btn-primary"
-          id="modalButton"
+          id="modalButtonTask"
           data-toggle="modal"
-          data-target="#modalWork"
+          data-target="#modalTask"
         >
-          Crear Obra
+          Crear Tarea
         </button>
         <div
           className="modal fade"
-          id="modalWork"
+          id="modalTask"
           tabIndex="-1"
           role="dialog"
           aria-labelledby="exampleModalCenterTitle"
@@ -53,7 +54,7 @@ class CreateWork extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalCenterTitle">
-                  Obra
+                  Tarea
                 </h5>
                 <button
                   type="button"
@@ -67,15 +68,34 @@ class CreateWork extends Component {
               <form onSubmit={e => this.handleSubmit(e)}>
                 <div className="modal-body">
                   <div className="form-group">
-                    <label htmlFor="name">Nombre</label>
+                    <label htmlFor="task">Nombre</label>
                     <input
                       type="text"
-                      value={name}
-                      onChange={e => this.handleChange(e, "name")}
+                      value={task}
+                      onChange={e => this.handleChange(e, "task")}
                       className="form-control"
-                      id="name"
+                      id="task"
                       required="required"
                     />
+                  </div>
+                  <div className="form-group">
+                    <div className="form-group">
+                      <label htmlFor="brand"> Obra </label>
+                      <select
+                        className="custom-select"
+                        id="type"
+                        value={workId}
+                        onChange={e => this.handleChange(e, "workId")}
+                      >
+                        {works.map((value, index) => {
+                          return (
+                            <option key={shortid.generate()} value={index}>
+                              {value.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -99,4 +119,4 @@ class CreateWork extends Component {
   }
 }
 
-export default CreateWork;
+export default CreateTask;
