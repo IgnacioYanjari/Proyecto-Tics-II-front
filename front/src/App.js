@@ -7,6 +7,7 @@ import LoginPage from "pages/LoginPage";
 import NotFoundPage from "pages/NotFoundPage";
 import ProductsPage from "pages/ProductsPage";
 import TypesPage from "pages/TypesPage";
+import CreatePage from "pages/CreatePage";
 import WorkersPage from "pages/WorkersPage";
 import AuthService from "services/AuthService";
 import "antd/dist/antd.css";
@@ -21,6 +22,7 @@ class App extends Component {
           <Route exact path="/" component={MainPage} />
           <SupervisorRoute exact path="/licitaciones" component={AboutPage} />
           <AdminRoute exact path="/productos" component={ProductsPage} />
+          <SupervisorRoute exact path="/crear" component={CreatePage} />
           <AdminRoute exact path="/tipos" component={TypesPage} />
           <AdminRoute exact path="/trabajadores" component={WorkersPage} />
           <Route exact path="/ingresar" component={LoginPage} />

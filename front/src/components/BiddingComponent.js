@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import shortid from "shortid";
-import CreateWork from "components/modals/CreateWork";
-import CreateTask from "components/modals/CreateTask";
+import CreateWork from "components/modals/create/Work";
+import CreateTask from "components/modals/create/Task";
 import AccordionComponent from "components/AccordionComponent";
 
 class BiddingComponent extends Component {
