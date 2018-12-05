@@ -62,62 +62,6 @@ for (var i = 0; i < 200; i++) {
     ]
   });
 }
-
-let tenders = [];
-
-for (var i = 0; i < 200; i++) {
-  tenders.push({
-    name: `Montaje Testeo ${i + 1}`,
-    type: [
-      {
-        type: "Unión",
-        name: "Soldada"
-      },
-      {
-        type: "Peso",
-        name: "Liviana"
-      },
-      {
-        type: "Prueba1",
-        name: "Tipo de prueba"
-      }
-    ]
-  });
-}
-
-const description = [
-  {
-    name: "dg",
-    title: "Desripción general",
-    content: "Esto es una descripción general"
-  },
-  {
-    name: "ma",
-    title: "Materiales",
-    content: "Esto es un material"
-  },
-  {
-    name: "in",
-    title: "Insumos",
-    content: "Esto es un insumo"
-  },
-  {
-    name: "mo",
-    title: "Mano de obra",
-    content: "Esto es una mano de obra"
-  },
-  {
-    name: "mq",
-    title: "Maquinaria",
-    content: "Esto es una maquinaria"
-  },
-  {
-    name: "gg",
-    title: "Gastos generales",
-    content: "Esto es un gasto general"
-  }
-];
-
 class AboutPage extends Component {
   constructor(props) {
     super(props);
