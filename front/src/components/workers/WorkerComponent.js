@@ -173,7 +173,7 @@ class EditableTable extends React.Component {
           ...row
         });
         if (newData[index]["rut"]) {
-          newData[index]["rut"] = newData[index]["rut"].replace(/\D/g, "");
+          newData[index]["rut"] = newData[index]["rut"].split("-").join("");
           newData[index]["rut"] = newData[index]["rut"].split(".").join("");
           newData[index]["rut"] = this.formatRut(newData[index]["rut"]);
         }

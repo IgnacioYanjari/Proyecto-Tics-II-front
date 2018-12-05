@@ -76,7 +76,7 @@ class HeaderComponent extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
-          Montajes LATAM
+          LicitApp
         </Link>
         <button
           className="navbar-toggler"

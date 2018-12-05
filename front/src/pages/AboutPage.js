@@ -26,10 +26,6 @@ for (var i = 0; i < 200; i++) {
       {
         type: "Peso",
         name: "Liviana"
-      },
-      {
-        type: "Prueba1",
-        name: "Tipo de prueba"
       }
     ],
     description: [
