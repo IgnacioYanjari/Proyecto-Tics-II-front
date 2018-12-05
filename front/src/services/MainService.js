@@ -58,11 +58,9 @@ class MainService {
       ...options
     })
       .then(res => this._checkStatus(res, messageSuccess, messageFail))
-      .then(response => {
+      .then(async response => {
         if (response) {
           return response.json();
-        } else {
-          console.log(response);
         }
       });
   }
@@ -80,7 +78,6 @@ class MainService {
     } else {
       if (messageFail) message.error(messageFail);
       console.log(response);
-      return response;
     }
   };
 }

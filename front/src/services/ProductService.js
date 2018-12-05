@@ -1,7 +1,6 @@
 import MainService from "services/MainService";
 
 class ProductService extends MainService {
-
   // ------------------ Get -------------------------------------------
 
   getMaterial() {
@@ -28,7 +27,7 @@ class ProductService extends MainService {
     });
   }
 
-// ------------------ Update -------------------------------------------
+  // ------------------ Update -------------------------------------------
 
   updateMachine(data, machineId) {
     return this.fetch(
@@ -72,7 +71,7 @@ class ProductService extends MainService {
     });
   }
 
-// ------------------ Create -------------------------------------------
+  // ------------------ Create -------------------------------------------
 
   createMachine(data) {
     return this.fetch(
