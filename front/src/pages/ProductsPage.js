@@ -4,6 +4,7 @@ import MaterialComponent from "components/products/MaterialComponent";
 import SupplyComponent from "components/products/SupplyComponent";
 import MachineComponent from "components/products/MachineComponent";
 import AdminLinks from "components/AdminLinks";
+import "./css/vl.css"
 
 const links = [
   {
@@ -21,11 +22,15 @@ class ProductsPage extends Component {
     return (
       <div>
         <HeaderComponent />
-        <AdminLinks links={links} />
-        <div className="text-center mt-3 container">
-          <MaterialComponent />
-          <SupplyComponent />
-          <MachineComponent />
+        <div className="row container-fluid">
+          <div className="col-3">
+            <AdminLinks links={links} />
+          </div>
+          <div className="col-9 text-center mt-3 container scroll">
+            <MaterialComponent />
+            <SupplyComponent />
+            <MachineComponent />
+          </div>
         </div>
       </div>
     );

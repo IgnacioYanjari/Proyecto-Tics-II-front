@@ -25,15 +25,19 @@ class TypesPage extends Component {
     return (
       <div>
         <HeaderComponent />
-        <AdminLinks links={links} />
-        <div className="text-center mt-3 container">
-          <ClientComponent />
-          <TenderComponent />
-          <WorkComponent />
-          <WorkForceComponent />
-          <MachineComponent />
-          <MaterialComponent />
-          <SupplyComponent />
+        <div className="row container-fluid">
+          <div className="col-3">
+            <AdminLinks links={links} />
+          </div>
+          <div className="col-9 text-center mt-3 container scroll">
+            <ClientComponent />
+            <TenderComponent />
+            <WorkComponent />
+            <WorkForceComponent />
+            <MachineComponent />
+            <MaterialComponent />
+            <SupplyComponent />
+          </div>
         </div>
       </div>
     );

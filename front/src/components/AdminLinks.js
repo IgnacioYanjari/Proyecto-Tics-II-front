@@ -10,7 +10,7 @@ class AdminLinks extends Component {
 
   renderColumns() {
     let columns = this.props.links;
-    let large = 12 / columns.length;
+    let large = 10 / columns.length;
     return columns.map(value => {
       return (
         <div
