@@ -10,7 +10,7 @@ class SelectSupply extends Component {
     return (
       <div key={shortid.generate()}>
         <button type="button" className="btn btn-primary">
-          hola
+          Agregar Insumo
         </button>
       </div>
     );
