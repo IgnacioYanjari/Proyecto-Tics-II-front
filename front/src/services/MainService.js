@@ -61,6 +61,8 @@ class MainService {
       .then(async response => {
         if (response) {
           return response.json();
+        } else {
+          return {status: "fail"};
         }
       });
   }

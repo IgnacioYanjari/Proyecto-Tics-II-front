@@ -17,7 +17,7 @@ let tenders = [];
 for (var i = 0; i < 200; i++) {
   tenders.push({
     id: i,
-    name: `Montaje Testeo ${i + 1}`,
+    name: `Montaje Prueba ${i + 1}`,
     type: [
       {
         type: "Unión",

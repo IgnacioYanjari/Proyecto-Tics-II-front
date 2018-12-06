@@ -180,6 +180,8 @@ class EditableTable extends React.Component {
         let {firstName, lastName, rut, phone, id} = newData[index];
         rut = rut.split(".").join("");
         rut = rut.split("-").join("");
+        phone = phone.match(/\d/g);
+        phone = phone.join("");
         if (phone === "") phone = null;
         let res = await this.workerService.update(
           {firstName, lastName, rut, phone},
