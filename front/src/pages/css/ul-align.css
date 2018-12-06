@@ -1,0 +1,6 @@
+.ul-align {
+  text-align: center;
+}
+.ul-align > ul {
+  display: inline-block;
+}

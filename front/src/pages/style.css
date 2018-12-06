@@ -6,3 +6,9 @@
     max-height: 75vh;
     overflow-y: auto;
 }
+.parent {
+  text-align: center;
+}
+.parent > ul {
+  display: inline-block;
+}
