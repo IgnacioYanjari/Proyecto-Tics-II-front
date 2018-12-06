@@ -37,6 +37,9 @@ class AuthService extends MainService {
 
   isAdmin() {
     if (!this.loggedIn()) return false;
+    if (!this.getProfile().roles) {
+      this.logout();
+    }
     let isAdmin = this.getProfile().roles.find(val => val === 1);
     if (isAdmin) return true;
     return false;
@@ -44,6 +47,9 @@ class AuthService extends MainService {
 
   isSupervisor() {
     if (!this.loggedIn()) return false;
+    if (!this.getProfile().roles) {
+      this.logout();
+    }
     let isAdmin = this.getProfile().roles.find(val => val === 2);
     if (isAdmin) return true;
     return false;
