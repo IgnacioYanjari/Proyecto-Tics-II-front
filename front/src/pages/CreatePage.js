@@ -3,10 +3,10 @@ import HeaderComponent from "components/HeaderComponent";
 import BiddingComponent from "../components/BiddingComponent";
 import OverviewComponent from "../components/OverviewComponent";
 import DescriptionComponent from "../components/DescriptionComponent";
-import SelectMachine from "../components/selects/SelectMachine";
-import SelectSupply from "../components/selects/SelectSupply";
-import SelectMaterial from "../components/selects/SelectMaterial";
-import SelectWorkForce from "../components/selects/SelectWorkForce";
+import Material from "../components/modals/get/Material";
+import Supply from "../components/modals/get/Supply";
+import WorkForce from "../components/modals/get/WorkForce";
+import Machine from "../components/modals/get/Machine";
 import "./style.css";
 
 class CreatePage extends Component {
@@ -52,22 +52,22 @@ class CreatePage extends Component {
                 {
                   name: "ma",
                   title: "Materiales",
-                  content: <SelectMaterial />
+                  content: <Material />
                 },
                 {
                   name: "in",
                   title: "Insumos",
-                  content: <SelectSupply />
+                  content: <Supply />
                 },
                 {
                   name: "mo",
                   title: "Mano de obra",
-                  content: <SelectWorkForce />
+                  content: <WorkForce />
                 },
                 {
                   name: "eq",
                   title: "Equipo",
-                  content: <SelectMachine />
+                  content: <Machine />
                 }
               ]}
             />

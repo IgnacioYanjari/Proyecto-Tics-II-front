@@ -9,7 +9,19 @@ class AccordionComponent extends Component {
   renderTasks(value, index) {
     return value.map(data => {
       if (data.workId === index) {
-        return <div key={shortid.generate()}>{data.task}</div>;
+        return (
+          <div key={shortid.generate()}>
+            <div className="row container-fluid">
+              <div className="col-6">{data.task}</div>
+              <div className="col-6">
+                <button type="button" class="btn btn-primary">
+                  Abrir
+                </button>
+              </div>
+            </div>
+            <hr />
+          </div>
+        );
       }
     });
   }
@@ -24,20 +36,16 @@ class AccordionComponent extends Component {
             <div className="card-header" id="headingOne">
               <h5 className="mb-0">
                 <div className="row">
-                  <div className="col-6">
-                    <button
-                      className="btn btn-link"
-                      type="button"
-                      data-toggle="collapse"
-                      data-target={`#${data.key2}`}
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      {data.name}
-                    </button>
-                  </div>
-                  <div className="col-6" />{" "}
-                  {/* aquí va el botón de selección */}
+                  <button
+                    className="btn btn-link"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target={`#${data.key2}`}
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    {data.name}
+                  </button>
                 </div>
               </h5>
             </div>

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import shortid from "shortid";
+import WorkForce from "components/modals/get/WorkForce";
 
 class SelectWorkForce extends Component {
   constructor(props) {
@@ -8,10 +9,8 @@ class SelectWorkForce extends Component {
 
   render() {
     return (
-      <div key={shortid.generate()}>
-        <button type="button" className="btn btn-primary">
-          hola
-        </button>
+      <div>
+        <WorkForce />
       </div>
     );
   }
