@@ -57,7 +57,7 @@ class HeaderComponent extends Component {
   renderSupervisor() {
     if (this.Auth.isSupervisor()) {
       return (
-        <div>
+        <div className="row container-fluid">
           <li className={`nav-item ${this.isActive("/licitaciones")}`}>
             <Link className="nav-link" to="/licitaciones">
               Licitaciones
